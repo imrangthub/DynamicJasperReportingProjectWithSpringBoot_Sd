@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$('#submit').click(function(event) {
+        event.preventDefault(); // prevent this form from being submited
+        var userJson = JSON.stringify($('#formId').serializeArray());
+        console.log("user jSon : "+userJson);
+        $.ajax({
+            type: "POST",
+            url: "/save",
+            data: userJson,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data){
+                 alert(data);//handle it in a proper way
+            },
+            failure: function(errMsg) {
+               alert(errMsg);//handle it in a proper way
+            }
+        });
+        return false;
+    });
+});
+</script>
+<meta charset="ISO-8859-1"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+	<form id="formId" name="formName">
+   <table>
+   <tr>
+   <td>name:</td>
+   <td><input name="setName" type="text" ></input></td>
+   </tr>
+   <tr>
+   <td>age:</td>
+   <td><input name="setAge" type="text"  ></input></td>
+   </tr>
+   <tr>
+   <td> <button id="submit" type ="button" >save</button></td>
+   </tr>
+   </table>
+	</form>
+</body>
+
+</html>
